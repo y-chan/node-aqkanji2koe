@@ -6,7 +6,7 @@ AqKanji2Koe::AqKanji2Koe(const std::string aqKanji2KoeLibraryPath, const std::st
 {
     void *aqKanji2KoeHandler = dlopen(aqKanji2KoeLibraryPath.c_str(), RTLD_LAZY);
     if (aqKanji2KoeHandler == NULL) {
-        throw std::exception("failed load library(AqKanji2Koe)");
+        throw std::runtime_error("failed load library(AqKanji2Koe)");
     }
     void *AqKanji2Koe_Create = dlsym(aqKanji2KoeHandler, "AqKanji2Koe_Create");
     void *AqKanji2Koe_Create_Ptr = dlsym(aqKanji2KoeHandler, "AqKanji2Koe_Create_Ptr");
@@ -20,12 +20,12 @@ AqKanji2Koe::AqKanji2Koe(const std::string aqKanji2KoeLibraryPath, const std::st
         AqKanji2Koe_Convert == NULL ||
         AqKanji2Koe_SetDevKey == NULL
     ) {
-        throw std::exception("loading library is succeeded, but can't found needed functions(AqKanji2Koe)");
+        throw std::runtime_error("loading library is succeeded, but can't found needed functions(AqKanji2Koe)");
     }
 
     void *aqUsrDicHandler = dlopen(aqUsrDicLibraryPath.c_str(), RTLD_LAZY);
     if (aqUsrDicHandler == NULL) {
-        throw std::exception("failed load library(AqUsrDic)");
+        throw std::runtime_error("failed load library(AqUsrDic)");
     }
     void *AqUsrDic_Import = dlsym(aqUsrDicHandler, "AqUsrDic_Import");
     void *AqUsrDic_Export = dlsym(aqUsrDicHandler, "AqUsrDic_Export");
@@ -37,7 +37,7 @@ AqKanji2Koe::AqKanji2Koe(const std::string aqKanji2KoeLibraryPath, const std::st
         AqUsrDic_Check == NULL ||
         AqUsrDic_GetLastError == NULL
     ) {
-        throw std::exception("loading library is succeeded, but can't found needed functions(AqUsrDic)");
+        throw std::runtime_error("loading library is succeeded, but can't found needed functions(AqUsrDic)");
     }
 
     m_aqKanji2KoeHandler = aqKanji2KoeHandler;

@@ -4,7 +4,7 @@ AqKanji2Koe::AqKanji2Koe(const std::string aqKanji2KoeLibraryPath, const std::st
 {
     HMODULE aqKanji2KoeHandler = LoadLibrary(aqKanji2KoeLibraryPath.c_str());
     if (aqKanji2KoeHandler == nullptr) {
-        throw std::exception("failed load library(AqKanji2Koe)");
+        throw std::runtime_error("failed load library(AqKanji2Koe)");
     }
     FARPROC AqKanji2Koe_Create = GetProcAddress(aqKanji2KoeHandler, "AqKanji2Koe_Create");
     FARPROC AqKanji2Koe_Create_Ptr = GetProcAddress(aqKanji2KoeHandler, "AqKanji2Koe_Create_Ptr");
@@ -22,12 +22,12 @@ AqKanji2Koe::AqKanji2Koe(const std::string aqKanji2KoeLibraryPath, const std::st
         AqKanji2Koe_Convert_sjis == nullptr ||
         AqKanji2Koe_SetDevKey ==nullptr
     ) {
-        throw std::exception("loading library is succeeded, but can't found needed functions(AqKanji2Koe)");
+        throw std::runtime_error("loading library is succeeded, but can't found needed functions(AqKanji2Koe)");
     }
 
     HMODULE aqUsrDicHandler = LoadLibrary(aqUsrDicLibraryPath.c_str());
     if (aqUsrDicHandler == nullptr) {
-        throw std::exception("failed load library(AqUsrDic)");
+        throw std::runtime_error("failed load library(AqUsrDic)");
     }
     void *AqUsrDic_Import = GetProcAddress(aqUsrDicHandler, "AqUsrDic_Import");
     void *AqUsrDic_Export = GetProcAddress(aqUsrDicHandler, "AqUsrDic_Export");
@@ -39,7 +39,7 @@ AqKanji2Koe::AqKanji2Koe(const std::string aqKanji2KoeLibraryPath, const std::st
         AqUsrDic_Check == nullptr ||
         AqUsrDic_GetLastError == nullptr
     ) {
-        throw std::exception("loading library is succeeded, but can't found needed functions(AqUsrDic)");
+        throw std::runtime_error("loading library is succeeded, but can't found needed functions(AqUsrDic)");
     }
 
     m_aqKanji2KoeHandler = aqKanji2KoeHandler;
