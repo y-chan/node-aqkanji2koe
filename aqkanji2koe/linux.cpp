@@ -58,7 +58,7 @@ void *AqKanji2Koe::AqKanji2Koe_Create(const char *pathDic, int *pErr)
 
 void *AqKanji2Koe::AqKanji2Koe_Create_Ptr(const void *pSysDic, const void *pUserDic, int *pErr)
 {
-	CREATE Create = (CREATE)dlsym(m_aqKanji2KoeHandler, "AqKanji2Koe_Create_Ptr");
+	CREATE_PTR Create = (CREATE_PTR)dlsym(m_aqKanji2KoeHandler, "AqKanji2Koe_Create_Ptr");
 	return Create(pSysDic, pUserDic, pErr);
 }
 
