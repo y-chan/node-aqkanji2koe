@@ -226,7 +226,7 @@ Napi::Value AqKanji2KoeWrapper::AqKanji2KoeConvertUtf8(const Napi::CallbackInfo&
 #if defined(_WIN32) || defined(_WIN64)
     err = m_aqkanji2koe->AqKanji2Koe_Convert_utf8(h_aqkanji2koe, kanji.c_str(), koe, size);
 #else
-    err = m_aqkanji2koe->AqKanji2Koe_Convert(hAqKanji2Koe, kanji.c_str(), koe, size);
+    err = m_aqkanji2koe->AqKanji2Koe_Convert(h_aqkanji2koe, kanji.c_str(), koe, size);
 #endif
     if (CheckAqKanji2KoeError(env, err)) {
         return env.Null();
