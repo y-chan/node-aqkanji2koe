@@ -77,7 +77,7 @@ int AqKanji2Koe::AqKanji2Koe_Convert(void *hAqKanji2Koe, const char *kanji, char
 int AqKanji2Koe::AqKanji2Koe_SetDevKey(const char *devKey)
 {
 	SETKEY SetKey = (SETKEY)dlsym(m_aqKanji2KoeHandler, "AqKanji2Koe_SetDevKey");
-	return SetKey(key);
+	return SetKey(devKey);
 }
 
 int AqKanji2Koe::AqUsrDic_Import(const char *pathUserDic, const char *pathDicCsv)
