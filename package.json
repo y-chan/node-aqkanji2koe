@@ -1,0 +1,32 @@
+{
+  "name": "node-aqkanji2koe",
+  "version": "1.0.0",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "lint": "eslint .",
+    "example": "ts-node -r tsconfig-paths/register example/index.ts",
+    "compile": "node-gyp rebuild",
+    "build": "tsc -p tsconfig.build.json",
+    "prepare": "yarn build"
+  },
+  "gypfile": true,
+  "dependencies": {
+    "@types/node": "^16.4.3",
+    "bindings": "^1.5.0",
+    "node": "^16.5.0",
+    "node-addon-api": "^4.0.0",
+    "ts-node": "^10.1.0",
+    "typescript": "^4.3.5"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.28.1",
+    "@typescript-eslint/parser": "^4.28.1",
+    "eslint": "^7.29.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "prettier": "^2.3.2",
+    "tsconfig-paths": "^3.10.1"
+  }
+}
