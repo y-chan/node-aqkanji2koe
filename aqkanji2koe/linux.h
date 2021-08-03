@@ -27,7 +27,7 @@ public:
     const char *AqUsrDic_GetLastError();
 private:
     void *m_aqKanji2KoeHandler;
-    void *m_aqUsrDirHandler;
+    void *m_aqUsrDicHandler;
 };
 
 #endif // LINUX_H
