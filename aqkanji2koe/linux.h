@@ -16,9 +16,7 @@ public:
 
     void AqKanji2Koe_Release(void *hAqKanji2Koe);
 
-    int AqKanji2Koe_Convert_utf8(void *hAqKanji2Koe, const char *kanji, char *koe, int nBufKoe);
-    int AqKanji2Koe_Convert_utf16(void *hAqKanji2Koe, const char16_t *kanji, char16_t *koe, int nBufKoe);
-    int AqKanji2Koe_Convert_sjis(void *hAqKanji2Koe, const char *kanji, char *koe, int nBufKoe);
+    int AqKanji2Koe_Convert(void *hAqKanji2Koe, const char *kanji, char *koe, int nBufKoe);
 
     int AqKanji2Koe_SetDevKey(const char *devKey);
 
