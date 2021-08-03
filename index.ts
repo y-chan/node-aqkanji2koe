@@ -32,10 +32,18 @@ class AqKanji2Koe implements IAqKanji2Koe {
    * @param {string} aqUsrDicLibraryPath - AqUsrDicライブラリのパス(絶対パス推奨)
    * @param {string} aqDicPath - aq_dic(辞書フォルダ)のパス(絶対パス推奨)
    */
-  constructor(aqKanji2KoeLibraryPath: string, aqUsrDicLibraryPath: string, aqDicPath?: string) {
+  constructor(
+    aqKanji2KoeLibraryPath: string,
+    aqUsrDicLibraryPath: string,
+    aqDicPath?: string
+  ) {
     if (aqDicPath) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-      this.addon = new addon(aqKanji2KoeLibraryPath, aqUsrDicLibraryPath, aqDicPath)
+      this.addon = new addon(
+        aqKanji2KoeLibraryPath,
+        aqUsrDicLibraryPath,
+        aqDicPath
+      )
     } else {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
       this.addon = new addon(aqKanji2KoeLibraryPath, aqUsrDicLibraryPath)
