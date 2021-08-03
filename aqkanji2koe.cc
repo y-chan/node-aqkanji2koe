@@ -13,15 +13,12 @@ Napi::Object AqKanji2KoeWrapper::NewInstance(Napi::Env env, const Napi::Callback
         return Napi::Object::New(env);
     }
 
-    if (!info[0].IsString() || !info[1].IsString() || (info.Length() > 2 && !info[2].IsString())) {
+    if (!info[0].IsString() || !info[1].IsString()) {
         Napi::TypeError::New(env, "wrong arguments").ThrowAsJavaScriptException();
         return Napi::Object::New(env);
     }
 
-    std::initializer_list<napi_value> initArgList = { info[0], info[1] };
-    if (info.Length() > 2) {
-        initArgList = { info[0], info[1], info[2] };
-    }
+    std::initializer_list<napi_value> initArgList = { info[0], info[1], info[2] };
 
     Napi::Object obj = env.GetInstanceData<Napi::FunctionReference>()->New(initArgList);
     return scope.Escape(napi_value(obj)).ToObject();
@@ -66,7 +63,7 @@ AqKanji2KoeWrapper::AqKanji2KoeWrapper(const Napi::CallbackInfo& info)
         return;
     }
 
-    if (info.Length() == 3) {
+    if (info[2].IsString()) {
         std::string aqDicPath = info[2].As<Napi::String>().Utf8Value();
         int err;
         void* hAqKanji2Koe = m_aqkanji2koe->AqKanji2Koe_Create(aqDicPath.c_str(), &err);
