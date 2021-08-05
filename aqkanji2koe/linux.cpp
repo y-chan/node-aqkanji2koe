@@ -5,7 +5,7 @@
 AqKanji2Koe::AqKanji2Koe(const std::string aqKanji2KoeLibraryPath, const std::string aqUsrDicLibraryPath)
 {
     void *aqKanji2KoeHandler = dlopen(aqKanji2KoeLibraryPath.c_str(), RTLD_LAZY);
-    if (aqKanji2KoeHandler == NULL) {
+    if (aqKanji2KoeHandler == nullptr) {
         throw std::runtime_error("failed load library(AqKanji2Koe)");
     }
     void *AqKanji2Koe_Create = dlsym(aqKanji2KoeHandler, "AqKanji2Koe_Create");
@@ -14,17 +14,17 @@ AqKanji2Koe::AqKanji2Koe(const std::string aqKanji2KoeLibraryPath, const std::st
     void *AqKanji2Koe_Convert = dlsym(aqKanji2KoeHandler, "AqKanji2Koe_Convert");
     void *AqKanji2Koe_SetDevKey = dlsym(aqKanji2KoeHandler, "AqKanji2Koe_SetDevKey");
     if (
-        AqKanji2Koe_Create == NULL ||
-        AqKanji2Koe_Create_Ptr == NULL ||
-        AqKanji2Koe_Release == NULL ||
-        AqKanji2Koe_Convert == NULL ||
-        AqKanji2Koe_SetDevKey == NULL
+        AqKanji2Koe_Create == nullptr ||
+        AqKanji2Koe_Create_Ptr == nullptr ||
+        AqKanji2Koe_Release == nullptr ||
+        AqKanji2Koe_Convert == nullptr ||
+        AqKanji2Koe_SetDevKey ==nullptr
     ) {
         throw std::runtime_error("loading library is succeeded, but can't found needed functions(AqKanji2Koe)");
     }
 
     void *aqUsrDicHandler = dlopen(aqUsrDicLibraryPath.c_str(), RTLD_LAZY);
-    if (aqUsrDicHandler == NULL) {
+    if (aqUsrDicHandler == nullptr) {
         throw std::runtime_error("failed load library(AqUsrDic)");
     }
     void *AqUsrDic_Import = dlsym(aqUsrDicHandler, "AqUsrDic_Import");
@@ -32,10 +32,10 @@ AqKanji2Koe::AqKanji2Koe(const std::string aqKanji2KoeLibraryPath, const std::st
     void *AqUsrDic_Check = dlsym(aqUsrDicHandler, "AqUsrDic_Check");
     void *AqUsrDic_GetLastError = dlsym(aqUsrDicHandler, "AqUsrDic_GetLastError");
     if (
-        AqUsrDic_Import == NULL ||
-        AqUsrDic_Export == NULL ||
-        AqUsrDic_Check == NULL ||
-        AqUsrDic_GetLastError == NULL
+        AqUsrDic_Import == nullptr ||
+        AqUsrDic_Export == nullptr ||
+        AqUsrDic_Check == nullptr ||
+        AqUsrDic_GetLastError ==nullptr
     ) {
         throw std::runtime_error("loading library is succeeded, but can't found needed functions(AqUsrDic)");
     }
