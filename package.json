@@ -10,6 +10,32 @@
     "build": "tsc -p tsconfig.build.json",
     "prepare": "yarn build"
   },
+  "homepage": "https://github.com/y-chan/node-aqkanji2koe#readme",
+  "keywords": [
+    "AqKanj2Koe",
+    "AquesTalk",
+    "texttospeech"
+  ],
+  "author": "y-chan <y-chan@y-chan.dev>",
+  "bugs": {
+    "url": "https://github.com/y-chan/node-aqkanji2koe/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/y-chan/node-aqkanji2koe"
+  },
+  "license": "MPL-2.0",
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "index.d.ts",
+    "index.js",
+    "aqkanji2koe.cc",
+    "aqkanji2koe.h",
+    "aqkanji2koe",
+    "binding.gyp"
+  ],
   "gypfile": true,
   "dependencies": {
     "@types/node": "^16.4.3",
