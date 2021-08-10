@@ -306,8 +306,15 @@ Napi::Value AqKanji2KoeWrapper::AqUsrDicImport(const Napi::CallbackInfo& info)
         return Napi::Boolean::New(env, false);
     }
 
+    std::string userDicFile;
+    if (pathDic.back() == '/' || pathDic.back() == '\\') {
+        userDicFile = "aq_user.dic";
+    } else {
+        userDicFile = "/aq_user.dic";
+    }
+    std::string pathUserDic = pathDic + userDicFile;
     std::string pathDicCsv = info[0].As<Napi::String>().Utf8Value();
-    int err = m_aqkanji2koe->AqUsrDic_Import(pathDic.c_str(), pathDicCsv.c_str());
+    int err = m_aqkanji2koe->AqUsrDic_Import(pathUserDic.c_str(), pathDicCsv.c_str());
     if (CheckAqUsrDicError(env, err)) {
         return Napi::Boolean::New(env, false);
     }
@@ -322,8 +329,15 @@ Napi::Value AqKanji2KoeWrapper::AqUsrDicExport(const Napi::CallbackInfo& info)
         return Napi::Boolean::New(env, false);
     }
 
+    std::string userDicFile;
+    if (pathDic.back() == '/' || pathDic.back() == '\\') {
+        userDicFile = "aq_user.dic";
+    } else {
+        userDicFile = "/aq_user.dic";
+    }
+    std::string pathUserDic = pathDic + userDicFile;
     std::string pathDicCsv = info[0].As<Napi::String>().Utf8Value();
-    int err = m_aqkanji2koe->AqUsrDic_Export(pathDic.c_str(), pathDicCsv.c_str());
+    int err = m_aqkanji2koe->AqUsrDic_Export(pathUserDic.c_str(), pathDicCsv.c_str());
     if (CheckAqUsrDicError(env, err)) {
         return Napi::Boolean::New(env, false);
     }
