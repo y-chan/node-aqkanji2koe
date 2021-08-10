@@ -1,5 +1,10 @@
 import AqKanji2Koe from '@/index'
 
-const aqkanji2koe = new AqKanji2Koe('AqKanji2Koe.dll', 'AqUsrDic.dll', 'aq_dic')
+let aqkanji2koe = new AqKanji2Koe('AqKanji2Koe.dll', 'AqUsrDic.dll', 'aq_dic')
 
-console.log(aqkanji2koe.AqKanji2KoeConvertUtf8('こんにちは'))
+aqkanji2koe.AqUsrDicImport('example/example.csv')
+
+// reload
+aqkanji2koe = new AqKanji2Koe('AqKanji2Koe.dll', 'AqUsrDic.dll', 'aq_dic')
+
+console.log(aqkanji2koe.AqKanji2KoeConvertUtf8("GitHub"))
