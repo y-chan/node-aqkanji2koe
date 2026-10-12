@@ -1,5 +1,6 @@
 #include <napi.h>
 #include <string>
+#include <climits>
 
 #include "aqkanji2koe.h"
 
@@ -215,7 +216,11 @@ Napi::Value AqKanji2KoeWrapper::AqKanji2KoeConvertUtf8(const Napi::CallbackInfo&
 
     std::string kanji = info[0].As<Napi::String>().Utf8Value();
     // 念のため、元の文字列の4倍の長さ分の配列を作る
-    int size = kanji.length() * 4;
+    if (kanji.length() > (size_t)INT_MAX / 4) {
+        Napi::RangeError::New(env, "input string is too long").ThrowAsJavaScriptException();
+        return env.Null();
+    }
+    int size = (int)(kanji.length() * 4);
     char* koe = (char *)malloc(sizeof(char) * size);
     memset(koe, 0, sizeof(char) * size);
 
@@ -241,9 +246,13 @@ Napi::Value AqKanji2KoeWrapper::AqKanji2KoeConvertSjis(const Napi::CallbackInfo&
         return env.Null();
     }
 
-    std::string kanji = info[0].As<Napi::String>().Utf8Value();
+    std::u16string kanji = info[0].As<Napi::String>().Utf16Value();
     // 念のため、元の文字列の4倍の長さ分の配列を作る
-    int size = kanji.length() * 4;
+    if (kanji.length() > (size_t)INT_MAX / 4) {
+        Napi::RangeError::New(env, "input string is too long").ThrowAsJavaScriptException();
+        return env.Null();
+    }
+    int size = (int)(kanji.length() * 4);
     char *koe = (char *)malloc(sizeof(char) * size);
     memset(koe, 0, sizeof(char) * size);
 
