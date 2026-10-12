@@ -215,9 +215,14 @@ Napi::Value AqKanji2KoeWrapper::AqKanji2KoeConvertUtf8(const Napi::CallbackInfo&
 
     std::string kanji = info[0].As<Napi::String>().Utf8Value();
     // 念のため、元の文字列の4倍の長さ分の配列を作る
-    int size = kanji.length() * 4;
-    char* koe = (char *)malloc(sizeof(char) * size);
-    memset(koe, 0, sizeof(char) * size);
+    int size = (int)(kanji.length() * 4);
+    // 変換結果が必ず NUL 終端されるよう 1 要素多く確保する
+    char* koe = (char *)malloc(sizeof(char) * (size + 1));
+    if (koe == nullptr) {
+        Napi::Error::New(env, "failed to allocate conversion buffer").ThrowAsJavaScriptException();
+        return env.Null();
+    }
+    memset(koe, 0, sizeof(char) * (size + 1));
 
     int err;
 #if defined(_WIN32) || defined(_WIN64)
@@ -226,9 +231,11 @@ Napi::Value AqKanji2KoeWrapper::AqKanji2KoeConvertUtf8(const Napi::CallbackInfo&
     err = m_aqkanji2koe->AqKanji2Koe_Convert(h_aqkanji2koe, kanji.c_str(), koe, size);
 #endif
     if (CheckAqKanji2KoeError(env, err)) {
+        free(koe);
         return env.Null();
     }
     Napi::String koeString = Napi::String::New(env, koe);
+    free(koe);
 
     return koeString;
 }
@@ -243,15 +250,21 @@ Napi::Value AqKanji2KoeWrapper::AqKanji2KoeConvertSjis(const Napi::CallbackInfo&
 
     std::string kanji = info[0].As<Napi::String>().Utf8Value();
     // 念のため、元の文字列の4倍の長さ分の配列を作る
-    int size = kanji.length() * 4;
-    char *koe = (char *)malloc(sizeof(char) * size);
-    memset(koe, 0, sizeof(char) * size);
+    int size = (int)(kanji.length() * 4);
+    char *koe = (char *)malloc(sizeof(char) * (size + 1));
+    if (koe == nullptr) {
+        Napi::Error::New(env, "failed to allocate conversion buffer").ThrowAsJavaScriptException();
+        return env.Null();
+    }
+    memset(koe, 0, sizeof(char) * (size + 1));
 
     int err = m_aqkanji2koe->AqKanji2Koe_Convert_sjis(h_aqkanji2koe, kanji.c_str(), koe, size);
     if (CheckAqKanji2KoeError(env, err)) {
+        free(koe);
         return env.Null();
     }
     Napi::String koeString = Napi::String::New(env, koe);
+    free(koe);
 
     return koeString;
 }
@@ -265,15 +278,21 @@ Napi::Value AqKanji2KoeWrapper::AqKanji2KoeConvertUtf16(const Napi::CallbackInfo
 
     std::u16string kanji = info[0].As<Napi::String>().Utf16Value();
     // 念のため、元の文字列の4倍の長さ分の配列を作る
-    int size = kanji.length() * 4;
-    char16_t *koe = (char16_t *)malloc(sizeof(char16_t) * size);
-    memset(koe, 0, sizeof(char16_t) * size);
+    int size = (int)(kanji.length() * 4);
+    char16_t *koe = (char16_t *)malloc(sizeof(char16_t) * (size + 1));
+    if (koe == nullptr) {
+        Napi::Error::New(env, "failed to allocate conversion buffer").ThrowAsJavaScriptException();
+        return env.Null();
+    }
+    memset(koe, 0, sizeof(char16_t) * (size + 1));
 
     int err = m_aqkanji2koe->AqKanji2Koe_Convert_utf16(h_aqkanji2koe, kanji.c_str(), koe, size);
     if (CheckAqKanji2KoeError(env, err)) {
+        free(koe);
         return env.Null();
     }
     Napi::String koeString = Napi::String::New(env, koe);
+    free(koe);
 
     return koeString;
 }
